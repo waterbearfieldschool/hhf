@@ -18,7 +18,8 @@ The empty `.nojekyll` file matters: it stops GitHub Pages from turning the
 
 How the doc maps to the page:
 
-- **First heading**: the page title.
+- **First heading**: the doc's own title. The page ignores it; the page title
+  ("WFS Projects at HHF") is set in `index.html`.
 - **A heading followed by bullet points**: a project card.
 - **A heading with no bullet points under it**: an area (Fields, Hoop Houses,
   …) that groups the cards after it.

@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Farm Projects · Hannan Healthy Foods</title>
+  <title>WFS Projects at HHF</title>
   <meta name="description" content="Waterbear Field School projects at Hannan Healthy Foods Farm: what we're working on and what's next." />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Farm Projects · Hannan Healthy Foods" />
+  <meta property="og:title" content="WFS Projects at HHF" />
   <meta property="og:description" content="Waterbear Field School projects at Hannan Healthy Foods Farm: what we're working on and what's next." />
   <meta name="theme-color" content="#1c4d3a" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>" />
@@ -31,9 +31,9 @@
     /* ---------- Header ---------- */
     .hero{background:var(--accent); color:#fff; padding:calc(28px + env(safe-area-inset-top)) 16px 26px}
     .hero-inner, .nav-inner, main, footer{max-width:1100px; margin:0 auto}
-    .eyebrow{display:inline-block; font-size:.78rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
-      color:rgba(255,255,255,.72); text-decoration:none; margin-bottom:8px}
-    .eyebrow:hover{color:#fff}
+    .eyebrow{margin:0 0 8px; font-size:.78rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.72)}
+    .eyebrow a{color:inherit; text-decoration:none; white-space:nowrap}
+    .eyebrow a:hover{color:#fff}
     .hero h1{margin:0; font-size:clamp(1.5rem, 5.5vw, 2.1rem); line-height:1.2; font-weight:700; letter-spacing:-.01em; text-wrap:balance}
     .hero .intro{margin:10px 0 0; color:rgba(255,255,255,.85); max-width:60ch}
     .hero .intro p{margin:0 0 6px}
@@ -116,8 +116,8 @@
 <body>
   <header class="hero">
     <div class="hero-inner">
-      <a class="eyebrow" href="https://waterbearfieldschool.org/">Waterbear Field School</a>
-      <h1 id="title">Projects at Hannan Healthy Foods</h1>
+      <p class="eyebrow"><a href="https://waterbearfieldschool.org/">Waterbear Field School</a> · <a href="https://hannanhealthyfoods.com/">Hannan Healthy Foods</a></p>
+      <h1>WFS Projects at HHF</h1>
       <div class="intro" id="intro"></div>
       <ul class="legend" aria-label="Key">
         <li><span class="mark"></span>To do</li>
@@ -292,7 +292,7 @@
   }
 
   function render(doc, lastModified) {
-    if (doc.title) { document.getElementById('title').textContent = doc.title; }
+    // The page title is fixed in the HTML above; the doc's first heading is not shown.
     document.getElementById('intro').innerHTML = paras(doc.intro);
 
     const main = document.getElementById('main');
