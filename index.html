@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Farm Projects · Hannan Healthy Foods</title>
+  <meta name="description" content="Waterbear Field School projects at Hannan Healthy Foods Farm: what we're working on and what's next." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Farm Projects · Hannan Healthy Foods" />
+  <meta property="og:description" content="Waterbear Field School projects at Hannan Healthy Foods Farm: what we're working on and what's next." />
+  <meta name="theme-color" content="#1c4d3a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Palette borrowed from the Waterbear Field School site (wfs-site/src/assets/css/site.css) */
+    :root{
+      --bg:#f7f7f5; --fg:#1f1f1f; --muted:#6b6b6b; --accent:#1c4d3a; --link:#0b6b50;
+      --card:#ffffff; --hair:#e6e6e3; --gold:#8B6914;
+      --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+      --working:#b7791f;
+      color-scheme:light;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+    body{margin:0; font:16px/1.55 Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color:var(--fg); background:var(--bg); -webkit-font-smoothing:antialiased}
+    a{color:var(--link); text-underline-offset:2px}
+
+    /* ---------- Header ---------- */
+    .hero{background:var(--accent); color:#fff; padding:calc(28px + env(safe-area-inset-top)) 16px 26px}
+    .hero-inner, .nav-inner, main, footer{max-width:1100px; margin:0 auto}
+    .eyebrow{display:inline-block; font-size:.78rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+      color:rgba(255,255,255,.72); text-decoration:none; margin-bottom:8px}
+    .eyebrow:hover{color:#fff}
+    .hero h1{margin:0; font-size:clamp(1.5rem, 5.5vw, 2.1rem); line-height:1.2; font-weight:700; letter-spacing:-.01em; text-wrap:balance}
+    .hero .intro{margin:10px 0 0; color:rgba(255,255,255,.85); max-width:60ch}
+    .hero .intro p{margin:0 0 6px}
+    .legend{display:flex; flex-wrap:wrap; gap:6px 14px; margin:16px 0 0; padding:0; list-style:none; font-size:.85rem; color:rgba(255,255,255,.8)}
+    .legend li{display:flex; align-items:center; gap:6px}
+    .legend .mark{border-color:rgba(255,255,255,.6)}
+    .legend .is-working .mark{border-color:#f0c36d; background:conic-gradient(#f0c36d 0 50%, transparent 0)}
+    .legend .is-done .mark{background:#fff; border-color:#fff; color:var(--accent)}
+
+    /* ---------- Area jump nav ---------- */
+    .nav{position:sticky; top:0; z-index:5; background:color-mix(in srgb, var(--bg) 88%, transparent);
+      -webkit-backdrop-filter:saturate(1.4) blur(10px); backdrop-filter:saturate(1.4) blur(10px); border-bottom:1px solid var(--hair)}
+    .nav-inner{display:flex; gap:8px; overflow-x:auto; padding:10px 16px; scrollbar-width:none}
+    .nav-inner::-webkit-scrollbar{display:none}
+    .nav a{flex:0 0 auto; display:inline-flex; align-items:center; gap:7px; padding:6px 12px; border-radius:999px;
+      background:var(--card); border:1px solid var(--hair); color:var(--accent); font-size:.9rem; font-weight:600; text-decoration:none; white-space:nowrap}
+    .nav a:active{background:var(--hair)}
+    .nav .swatch{width:8px; height:8px; border-radius:50%; background:var(--area)}
+
+    /* ---------- Areas & cards ---------- */
+    main{padding:8px 16px 24px}
+    .area{padding-top:22px; scroll-margin-top:60px}
+    .area-title{display:flex; align-items:center; gap:10px; margin:0 0 4px; font-size:.95rem; font-weight:700;
+      text-transform:uppercase; letter-spacing:.07em; color:var(--accent)}
+    .area-title .swatch{width:10px; height:10px; border-radius:50%; background:var(--area);
+      box-shadow:0 0 0 4px color-mix(in srgb, var(--area) 18%, transparent)}
+    .area-title .n{margin-left:auto; font-size:.8rem; font-weight:600; color:var(--muted); letter-spacing:.02em; text-transform:none}
+    .area-intro{margin:0 0 4px; color:var(--muted); font-size:.95rem; max-width:65ch}
+    .cards{display:grid; gap:14px; grid-template-columns:1fr; align-items:start; margin-top:12px}
+    @media (min-width:680px){ .cards{grid-template-columns:repeat(2, minmax(0,1fr))} }
+    @media (min-width:1000px){ .cards{grid-template-columns:repeat(3, minmax(0,1fr))} }
+
+    .card{background:var(--card); border:1px solid var(--hair); border-top:4px solid var(--area); border-radius:16px;
+      overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; scroll-margin-top:70px}
+    .card-media img{display:block; width:100%; aspect-ratio:4/3; object-fit:cover; background:var(--hair);
+      opacity:0; transition:opacity .4s ease}
+    .card-media img.shown{opacity:1}
+    .card-body{padding:14px 16px 16px}
+    .card-head{display:flex; align-items:baseline; gap:10px}
+    .card h3{margin:0; font-size:1.12rem; line-height:1.3; color:var(--fg); font-weight:700}
+    .count{margin-left:auto; flex:0 0 auto; font-size:.78rem; font-weight:600; color:var(--muted); font-variant-numeric:tabular-nums}
+    .bar{height:4px; border-radius:2px; background:var(--hair); margin:10px 0 0; overflow:hidden}
+    .bar span{display:block; height:100%; background:var(--area); border-radius:2px}
+    .blurb{margin:10px 0 0; color:var(--muted); font-size:.95rem}
+    .blurb p{margin:0 0 6px}
+    .photo-hint{display:inline-block; margin-top:8px; padding:2px 8px; border-radius:6px; background:#fff7e0; border:1px dashed var(--gold);
+      color:var(--gold); font:500 .78rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace}
+    .photo-hint.found{background:#eaf4ee; border-color:var(--link); color:var(--link)}
+
+    /* ---------- Task list ---------- */
+    .tasks{list-style:none; margin:12px 0 0; padding:0}
+    .task{display:flex; align-items:flex-start; gap:10px; padding:8px 0; border-top:1px solid var(--hair); font-size:.97rem; line-height:1.45}
+    .task:first-child{border-top:none; padding-top:2px}
+    .task.sub{padding-left:28px}
+    .mark{flex:0 0 auto; width:18px; height:18px; margin-top:2px; border-radius:50%; border:2px solid #c9c9c4;
+      display:inline-flex; align-items:center; justify-content:center}
+    .task.is-working .mark{border-color:var(--working); background:conic-gradient(var(--working) 0 50%, transparent 0)}
+    .is-done .mark{background:var(--accent); border-color:var(--accent); color:#fff}
+    .is-done .mark::after{content:""; width:5px; height:9px; margin-top:-2px; border:solid currentColor; border-width:0 2px 2px 0; transform:rotate(45deg)}
+    .task.is-done .text{color:var(--muted); text-decoration:line-through; text-decoration-color:rgba(0,0,0,.25)}
+    .text{flex:1; min-width:0; overflow-wrap:anywhere}
+    .pill{display:inline-block; margin-left:6px; padding:1px 8px; border-radius:999px; font-size:.72rem; font-weight:600;
+      letter-spacing:.02em; vertical-align:2px; white-space:nowrap}
+    .pill.working{background:#fdf1dc; color:#8a5a12}
+    .pill.optional{background:var(--bg); color:var(--muted); border:1px solid var(--hair)}
+    .empty{color:var(--muted); font-size:.9rem; font-style:italic; margin:12px 0 0}
+
+    /* ---------- States & footer ---------- */
+    .status{margin:40px auto; max-width:520px; text-align:center; color:var(--muted)}
+    .status code{background:var(--card); border:1px solid var(--hair); border-radius:6px; padding:1px 6px; font-size:.9em}
+    .skeleton{height:150px; border-radius:16px; background:linear-gradient(90deg, #eeeeea 0, #f6f6f3 50%, #eeeeea 100%);
+      background-size:200% 100%; animation:shimmer 1.4s infinite linear; margin-top:14px}
+    @keyframes shimmer{to{background-position:-200% 0}}
+    footer{padding:18px 16px calc(28px + env(safe-area-inset-bottom)); color:var(--muted); font-size:.82rem; text-align:center}
+    footer a{color:var(--accent)}
+    .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .card-media img{transition:none} .skeleton{animation:none} }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <a class="eyebrow" href="https://waterbearfieldschool.org/">Waterbear Field School</a>
+      <h1 id="title">Projects at Hannan Healthy Foods</h1>
+      <div class="intro" id="intro"></div>
+      <ul class="legend" aria-label="Key">
+        <li><span class="mark"></span>To do</li>
+        <li class="is-working"><span class="mark"></span>In progress</li>
+        <li class="is-done"><span class="mark"></span>Done</li>
+      </ul>
+    </div>
+  </header>
+
+  <nav class="nav" id="nav" aria-label="Jump to area" hidden><div class="nav-inner" id="nav-inner"></div></nav>
+
+  <main id="main">
+    <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  </main>
+
+  <footer id="footer">
+    <span id="updated"></span>
+    A collaboration between <a href="https://waterbearfieldschool.org/">Waterbear Field School</a>
+    and <a href="https://hannanhealthyfoods.com/">Hannan Healthy Foods Farm</a>.
+  </footer>
+
+  <script>
+  /*
+   * The page content comes from SOURCE (a Markdown export of the shared Google Doc).
+   * Re-download the doc as Markdown, save it over that file, and the page updates.
+   *
+   * Photos: put a JPG at photos/<card-id>.jpg and it appears on that card.
+   * Open the page with ?photos on the end of the URL to see each card's filename.
+   */
+  const SOURCE = 'wfs_projects_edit.md';
+  const PHOTO_DIR = 'photos/';
+  const AREA_COLORS = ['#6b9b4d', '#4da6a6', '#8b7355', '#d4a574', '#5b8fd4', '#7d9670', '#cd853f', '#9370db'];
+  const SHOW_PHOTO_HINTS = new URLSearchParams(location.search).has('photos');
+
+  /* ---------- Markdown → areas / projects ---------- */
+
+  const escapeHtml = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  // Inline Markdown: backslash escapes (Google Docs adds lots), bold, italic, links.
+  function inline(raw) {
+    const held = [];
+    let s = raw.replace(/\\([!-\/:-@\[-`{-~])/g, (_, c) => { held.push(c); return '\u0000' + (held.length - 1) + '\u0000'; });
+    s = s.replace(/!\[[^\]]*\]\[[^\]]*\]|!\[[^\]]*\]\([^)]*\)/g, ''); // drop embedded images
+    s = escapeHtml(s);
+    s = s.replace(/\[([^\]]+)\]\(((?:https?:|mailto:)[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    s = s.replace(/\*\*(.+?)\*\*|__(.+?)__/g, (_, a, b) => '<strong>' + (a || b) + '</strong>');
+    s = s.replace(/(^|[^\w*])\*(?!\s)(.+?)\*(?!\w)/g, '$1<em>$2</em>');
+    s = s.replace(/(^|\W)_(?!\s)(.+?)_(?!\w)/g, '$1<em>$2</em>');
+    s = s.replace(/\u0000(\d+)\u0000/g, (_, i) => escapeHtml(held[+i]));
+    return s.trim();
+  }
+  const plain = raw => { const d = document.createElement('div'); d.innerHTML = inline(raw); return d.textContent.trim(); };
+
+  function classify(line) {
+    if (!line.trim()) return { t: 'blank' };
+    if (/^\s*([-*_])(\s*\1){2,}\s*$/.test(line)) return { t: 'blank' };          // horizontal rule
+    if (/^\s*\[[^\]]+\]:\s*/.test(line)) return { t: 'blank' };                   // reference / embedded-image definitions
+    let m;
+    if ((m = line.match(/^\s{0,3}#{1,6}\s+(.*?)\s*#*\s*$/))) return { t: 'h', text: m[1].replace(/^\*\*(.*)\*\*$/, '$1') };
+    if ((m = line.match(/^\s*\*\*((?:[^*]|\\\*)+)\*\*\s*:?\s*$/))) return { t: 'h', text: m[1] };
+    if ((m = line.match(/^(\s*)(?:[-*+•]|\d+[.)])\s+(.*)$/))) {
+      const indent = m[1].replace(/\t/g, '    ').length;
+      return { t: 'li', depth: indent >= 2 ? 1 : 0, text: m[2] };
+    }
+    return { t: 'p', text: line.trim() };
+  }
+
+  function parseTask(raw, depth) {
+    let text = raw, status = 'todo', optional = false, m;
+    if ((m = text.match(/^\\?\[([ xX])\\?\]\s+/))) {                               // Google Docs checklist: - [ ] / - [x]
+      if (m[1] !== ' ') status = 'done';
+      text = text.slice(m[0].length);
+    }
+    const tag = /\s*\\?\[\s*(done|complete|completed|finished|working|in progress|in-progress|doing|started)\s*\\?\]\s*/i;
+    if ((m = text.match(tag))) {
+      status = /^(done|complete|completed|finished)$/i.test(m[1]) ? 'done' : 'working';
+      text = (text.slice(0, m.index) + ' ' + text.slice(m.index + m[0].length)).trim();
+    }
+    if ((m = text.match(/^\\?\(\s*optional\s*\\?\)\s*:?\s*/i))) {
+      optional = true;
+      text = text.slice(m[0].length);
+      text = text.charAt(0).toUpperCase() + text.slice(1);
+    }
+    return { html: inline(text), status, optional, depth };
+  }
+
+  const slugify = s => s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  function parse(md) {
+    // 1. Split into blocks: each heading owns the paragraphs and list items under it.
+    const blocks = [{ heading: null, paras: [], items: [] }];
+    let prev = 'blank';
+    for (const line of md.split(/\r?\n/)) {
+      const tok = classify(line);
+      const cur = blocks[blocks.length - 1];
+      if (tok.t === 'h') blocks.push({ heading: tok.text, paras: [], items: [] });
+      else if (tok.t === 'li') cur.items.push(tok);
+      else if (tok.t === 'p') {
+        if (prev === 'p' && cur.paras.length) cur.paras[cur.paras.length - 1] += ' ' + tok.text;
+        else cur.paras.push(tok.text);
+      }
+      prev = tok.t;
+    }
+
+    // 2. First heading with no tasks is the page title. After that, a heading with tasks
+    //    is a project card; a heading without tasks starts a new area (section).
+    const doc = { title: '', intro: [...blocks[0].paras], areas: [] };
+    let i = 1;
+    if (blocks[1] && !blocks[1].items.length) { doc.title = plain(blocks[1].heading); doc.intro.push(...blocks[1].paras); i = 2; }
+    let area = null;
+    for (; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (!b.items.length) { area = { name: plain(b.heading), intro: b.paras, projects: [] }; doc.areas.push(area); continue; }
+      if (!area) { area = { name: 'Projects', intro: [], projects: [] }; doc.areas.push(area); }
+      const name = plain(b.heading);
+      area.projects.push({ name, blurb: b.paras, tasks: b.items.map(it => parseTask(it.text, it.depth)), id: slugify(area.name + ' ' + name) });
+    }
+    doc.areas = doc.areas.filter(a => a.projects.length);
+    return doc;
+  }
+
+  /* ---------- Rendering ---------- */
+
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  const paras = list => list.map(p => '<p>' + inline(p) + '</p>').join('');
+
+  function renderCard(p) {
+    const card = el('article', 'card');
+    card.id = p.id;
+    const media = el('div', 'card-media');
+    const body = el('div', 'card-body');
+    card.append(media, body);
+
+    const total = p.tasks.length, done = p.tasks.filter(t => t.status === 'done').length;
+    const head = el('div', 'card-head');
+    head.append(el('h3', null, escapeHtml(p.name)));
+    head.append(el('span', 'count', done ? `${done}/${total} done` : `${total} ${total === 1 ? 'task' : 'tasks'}`));
+    body.append(head);
+    if (done) { const bar = el('div', 'bar', `<span style="width:${(100 * done / total).toFixed(1)}%"></span>`); bar.setAttribute('aria-hidden', 'true'); body.append(bar); }
+    if (p.blurb.length) body.append(el('div', 'blurb', paras(p.blurb)));
+
+    let hint = null;
+    if (SHOW_PHOTO_HINTS) { hint = el('code', 'photo-hint', escapeHtml(PHOTO_DIR + p.id + '.jpg')); body.append(hint); }
+
+    const ul = el('ul', 'tasks');
+    for (const t of p.tasks) {
+      const li = el('li', 'task is-' + t.status + (t.depth ? ' sub' : ''));
+      const label = t.status === 'done' ? '<span class="sr">Done: </span>' : t.status === 'working' ? '<span class="sr">In progress: </span>' : '';
+      const pills = (t.optional ? '<span class="pill optional">Optional</span>' : '') + (t.status === 'working' ? '<span class="pill working" aria-hidden="true">In progress</span>' : '');
+      li.innerHTML = `<span class="mark" aria-hidden="true"></span><span class="text">${label}${t.html}${pills}</span>`;
+      ul.append(li);
+    }
+    body.append(ul);
+
+    loadPhoto(card, media, p.id, hint);
+    return card;
+  }
+
+  // Try photos/<id>.jpg once the card is near the screen; show it only if it exists.
+  const photoObserver = 'IntersectionObserver' in window
+    ? new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { photoObserver.unobserve(e.target); e.target._loadPhoto(); } }), { rootMargin: '600px 0px' })
+    : null;
+  function loadPhoto(card, media, id, hint) {
+    card._loadPhoto = () => {
+      const img = new Image();
+      img.alt = '';
+      img.decoding = 'async';
+      img.onload = () => { media.append(img); requestAnimationFrame(() => img.classList.add('shown')); if (hint) hint.classList.add('found'); };
+      img.src = PHOTO_DIR + encodeURIComponent(id) + '.jpg';
+    };
+    photoObserver ? photoObserver.observe(card) : card._loadPhoto();
+  }
+
+  function render(doc, lastModified) {
+    if (doc.title) { document.getElementById('title').textContent = doc.title; }
+    document.getElementById('intro').innerHTML = paras(doc.intro);
+
+    const main = document.getElementById('main');
+    const navInner = document.getElementById('nav-inner');
+    main.innerHTML = ''; navInner.innerHTML = '';
+
+    if (!doc.areas.length) { main.innerHTML = '<p class="status">No projects found yet.</p>'; return; }
+
+    doc.areas.forEach((a, i) => {
+      const color = AREA_COLORS[i % AREA_COLORS.length];
+      const id = 'area-' + slugify(a.name);
+      const sec = el('section', 'area');
+      sec.id = id;
+      sec.style.setProperty('--area', color);
+      const n = a.projects.length;
+      sec.append(el('h2', 'area-title', `<span class="swatch" aria-hidden="true"></span>${escapeHtml(a.name)}<span class="n">${n} ${n === 1 ? 'project' : 'projects'}</span>`));
+      if (a.intro.length) sec.append(el('div', 'area-intro', paras(a.intro)));
+      const grid = el('div', 'cards');
+      a.projects.forEach(p => grid.append(renderCard(p)));
+      sec.append(grid);
+      main.append(sec);
+
+      const link = el('a', null, `<span class="swatch" aria-hidden="true"></span>${escapeHtml(a.name)}`);
+      link.href = '#' + id;
+      link.style.setProperty('--area', color);
+      navInner.append(link);
+    });
+    document.getElementById('nav').hidden = doc.areas.length < 2;
+
+    if (lastModified) {
+      const d = new Date(lastModified);
+      if (!isNaN(d)) document.getElementById('updated').textContent =
+        'Updated ' + d.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }) + '. ';
+    }
+    if (location.hash) { const t = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) t.scrollIntoView(); }
+  }
+
+  function fail(err) {
+    const local = location.protocol === 'file:';
+    document.getElementById('main').innerHTML = `<div class="status">
+      <p><strong>Couldn't load the project list.</strong></p>
+      ${local
+        ? `<p>Browsers block reading <code>${SOURCE}</code> from a file opened directly. Preview it with a local server instead, for example <code>python3 -m http.server</code> in this folder, then open <code>http://localhost:8000</code>.</p>`
+        : `<p>Check your connection and refresh the page.</p>`}
+    </div>`;
+    console.error(err);
+  }
+
+  fetch(SOURCE, { cache: 'no-cache' })
+    .then(r => { if (!r.ok) throw new Error(r.status + ' ' + r.statusText); return r.text().then(t => [t, r.headers.get('Last-Modified')]); })
+    .then(([md, lm]) => render(parse(md), lm))
+    .catch(fail);
+  </script>
+</body>
+</html>
